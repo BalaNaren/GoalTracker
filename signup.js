@@ -15,8 +15,28 @@ function signup() {
         return;
     }
 
-    // Here you would typically send the data to a server
-    // For this example, we'll just simulate successful account creation
-    alert('Account successfully created. Please log in.');
-    window.location.href = 'login.html';
+    const userData = {
+        name: name,
+        email: email,
+        password: password // In a real application, ensure you're handling passwords securely!
+    };
+
+    // Send a POST request to the server
+    fetch('https://example.com/api/accounts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        alert('Account successfully created. Please log in.');
+        window.location.href = 'login.html';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
 }
